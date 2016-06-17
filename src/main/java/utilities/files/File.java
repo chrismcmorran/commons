@@ -4,6 +4,7 @@ import utilities.crypto.CRC32;
 import utilities.crypto.MD5;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.net.URI;
 import java.util.Scanner;
 
@@ -162,11 +163,54 @@ public class File extends java.io.File {
 	 * @return	A String.
      */
 	public String getMD5() {
-		return MD5.hash(this.contents());
+		return MD5.hash(contents());
 	}
 
 	public String getCRC32() {
-		return new CRC32(this.contents()).hash();
+		return new CRC32(contents()).hash();
 	}
+
+	public String getHEX() {
+        return String.format("%x", new BigInteger(1, bytes()));
+    }
+
+
+    /**
+     * Appends the specified String to this file.
+     * @param contents  The String to append.
+     * @return          This file.
+     */
+    public File append(String contents) {
+        try {
+            OutputStream stream = new FileOutputStream(this, true);
+            stream.write(contents.getBytes());
+            stream.flush();
+            stream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    /**
+     * Determines the number of words in the specified file.
+     * Words are determined by the " " String.
+     * @return  An int.
+     */
+    public int wordCount() {
+        return contents().split(" ").length;
+    }
+
+    /**
+     * Determines the number of newlines in ths pecified file.
+     * @return  An int.
+     */
+    public int lineCount() {
+        return contents().split("\n").length;
+    }
+
+
 
 }

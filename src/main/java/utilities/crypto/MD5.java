@@ -17,13 +17,8 @@ public class MD5 extends HashSum {
         }
     }
 
-    private String toHash;
 
-    public MD5() {
-
-    }
-
-    public String hash(String md5) {
+    public static String hash(String md5) {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             byte[] array = md.digest(md5.getBytes());
