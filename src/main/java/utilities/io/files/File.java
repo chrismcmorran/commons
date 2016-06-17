@@ -1,4 +1,4 @@
-package utilities.files;
+package utilities.io.files;
 
 import utilities.crypto.CRC32;
 import utilities.crypto.MD5;
@@ -210,7 +210,5 @@ public class File extends java.io.File {
     public int lineCount() {
         return contents().split("\n").length;
     }
-
-
 
 }
